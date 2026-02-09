@@ -109,12 +109,13 @@ async def get_products():
     return PRODUCTS
 
 
-@api_router.get("/products/{product_id}", response_model=Product)
+@api_router.get("/products/{product_id}")
 async def get_product(product_id: int):
     """Get a single product by ID"""
+    from fastapi import HTTPException
     product = next((p for p in PRODUCTS if p["id"] == product_id), None)
     if not product:
-        return {"error": "Product not found"}
+        raise HTTPException(status_code=404, detail="Product not found")
     return product
 
 
