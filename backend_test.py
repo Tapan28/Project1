@@ -81,8 +81,8 @@ class ECommerceAPITester:
         return success, product
 
     def test_invalid_product(self):
-        """Test getting a non-existent product"""
-        return self.run_test("Get Invalid Product", "GET", "api/products/999", 200)  # API returns 200 with error message
+        """Test getting a non-existent product - should return 404"""
+        return self.run_test("Get Invalid Product", "GET", "api/products/999", 404)
 
 def main():
     print("🚀 Starting E-Commerce API Tests")
