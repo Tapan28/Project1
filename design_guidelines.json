@@ -1,0 +1,188 @@
+{
+  "identity": {
+    "name": "E1",
+    "role": "Creative Designer (Top 1%)",
+    "principles": [
+      "Fusion over Imitation",
+      "Emotion First",
+      "Content is King",
+      "Zoom In",
+      "Negative Space",
+      "Contrast"
+    ]
+  },
+  "project_context": {
+    "app_name": "LUMIÈRE",
+    "app_type": "E-Commerce (Clothing)",
+    "target_audience": "General shoppers, fashion enthusiasts",
+    "design_style": "Modern Minimal (Swiss High-Contrast)",
+    "emotional_tone": "Sophisticated, Clean, Effortless, Premium"
+  },
+  "design_system": {
+    "typography": {
+      "headings": {
+        "font_family": "Playfair Display, serif",
+        "weights": ["400", "600", "700"],
+        "usage": "Hero titles, Section headers, Product names (Large)",
+        "letter_spacing": "tracking-tight"
+      },
+      "body": {
+        "font_family": "Manrope, sans-serif",
+        "weights": ["300", "400", "500", "600"],
+        "usage": "Descriptions, UI elements, Buttons, Price tags",
+        "letter_spacing": "tracking-normal"
+      },
+      "scale": {
+        "h1": "text-5xl md:text-7xl font-semibold tracking-tighter leading-none",
+        "h2": "text-3xl md:text-5xl font-medium tracking-tight",
+        "h3": "text-2xl md:text-3xl font-normal",
+        "body_lg": "text-lg md:text-xl font-light leading-relaxed",
+        "body_base": "text-base font-normal leading-relaxed",
+        "caption": "text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground"
+      }
+    },
+    "colors": {
+      "palette": {
+        "background": "#FFFFFF",
+        "foreground": "#09090B",
+        "primary": "#09090B",
+        "primary_foreground": "#FFFFFF",
+        "secondary": "#F4F4F5",
+        "secondary_foreground": "#18181B",
+        "muted": "#F4F4F5",
+        "muted_foreground": "#71717A",
+        "accent": "#F4F4F5",
+        "accent_foreground": "#18181B",
+        "border": "#E4E4E7",
+        "input": "#E4E4E7",
+        "ring": "#09090B"
+      },
+      "usage_rules": [
+        "Primary background must be pure White (#FFFFFF).",
+        "Text must be Deep Black (#09090B) for maximum contrast.",
+        "Use very light gray (#F9FAFB) for subtle section differentiation.",
+        "No gradients. Use solid colors and texture.",
+        "Buttons: Solid Black with White text. Sharp corners or pill-shaped."
+      ]
+    },
+    "spacing": {
+      "scale": ["p-4", "p-6", "p-8", "p-12", "p-16", "p-24", "p-32"],
+      "container_padding": "px-6 md:px-12 lg:px-24",
+      "section_gap": "gap-12 md:gap-24",
+      "grid_gap": "gap-x-8 gap-y-16"
+    },
+    "layout": {
+      "grid_system": "Grid Mode A (Tetris/Masonry) for Product Listing. Asymmetrical.",
+      "container_width": "max-w-[1800px] mx-auto",
+      "border_radius": {
+        "default": "rounded-none",
+        "buttons": "rounded-full",
+        "cards": "rounded-none"
+      }
+    },
+    "motion": {
+      "transitions": "transition-all duration-500 ease-[0.22,1,0.36,1]",
+      "hover_effects": "hover:-translate-y-1 hover:shadow-xl",
+      "scroll_reveal": "opacity-0 translate-y-8 transition-all duration-700 ease-out"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 rounded-full text-sm uppercase tracking-widest font-semibold transition-transform active:scale-95",
+      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80 h-12 px-8 rounded-full text-sm uppercase tracking-widest font-medium",
+      "outline": "border border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 px-8 rounded-full text-sm uppercase tracking-widest"
+    },
+    "cards": {
+      "product": "group relative flex flex-col gap-4 bg-transparent border-none shadow-none",
+      "product_image": "aspect-[3/4] overflow-hidden bg-secondary relative",
+      "product_image_inner": "object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+    },
+    "inputs": {
+      "default": "flex h-12 w-full rounded-none border-b border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1764844463559-63d59516380a?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Minimalist fashion model hero"
+      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Oversized Structure Blazer",
+          "price": 189,
+          "category": "Outerwear",
+          "image": "https://images.unsplash.com/photo-1737540995419-21ed4ded15a6?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 2,
+          "name": "Essential Cotton Sweatshirt",
+          "price": 85,
+          "category": "Tops",
+          "image": "https://images.unsplash.com/photo-1693901257178-b5fcb8f036a8?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 3,
+          "name": "Tailored Wool Coat",
+          "price": 245,
+          "category": "Outerwear",
+          "image": "https://images.unsplash.com/photo-1737540995958-1b1b3efd391f?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 4,
+          "name": "Noir Leather Jacket",
+          "price": 320,
+          "category": "Outerwear",
+          "image": "https://images.unsplash.com/photo-1616404662085-b81be2812cf2?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 5,
+          "name": "Winter Trench Coat",
+          "price": 210,
+          "category": "Outerwear",
+          "image": "https://images.unsplash.com/photo-1632149877166-f75d49000351?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 6,
+          "name": "Signature White Suit",
+          "price": 299,
+          "category": "Suits",
+          "image": "https://images.unsplash.com/photo-1746864946956-0c047289abaf?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 7,
+          "name": "Silk Evening Dress",
+          "price": 180,
+          "category": "Dresses",
+          "image": "https://images.unsplash.com/photo-1641840007671-06412f440b65?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          "id": 8,
+          "name": "Everyday Tote",
+          "price": 120,
+          "category": "Accessories",
+          "image": "https://images.unsplash.com/photo-1632149877166-f75d49000351?crop=entropy&cs=srgb&fm=jpg&q=85"
+        }
+      ]
+    },
+    "icons": "Use 'lucide-react' with thin stroke width (1.5px) for elegance."
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALL FONTS: Add '@fontsource/playfair-display' and '@fontsource/manrope' to package.json and import in index.js.",
+    "2. TAILWIND CONFIG: Update tailwind.config.js to include the new font families and color palette.",
+    "3. LAYOUT: Implement the 'Masonry' grid for the product listing. Do not use a simple equal-height grid. Allow images to have their natural aspect ratio or force 3:4.",
+    "4. COMPONENTS: Use Shadcn UI for interactive elements (Cart sheet, Dialogs) but style them to match the 'Swiss Minimal' aesthetic (sharp edges, black/white).",
+    "5. MOCK API: Create a simple mock API function that returns the product list defined in 'assets.images.products'.",
+    "6. CART STATE: Use React Context or Zustand for global cart state management.",
+    "7. MICRO-INTERACTIONS: Add hover effects to product cards (image zoom) and buttons (scale/color shift).",
+    "8. DATA-TESTID: Ensure all interactive elements have 'data-testid' attributes."
+  ],
+  "universal_guidelines": [
+    "Avoid generic centered layouts.",
+    "Use 2-3x more spacing than typical.",
+    "No gradients, use solid colors.",
+    "Every interaction needs micro-animations.",
+    "Use 'sonner' for toasts."
+  ]
+}
