@@ -48,6 +48,9 @@ const Header = () => {
               <SheetTitle className="font-playfair text-2xl font-semibold" data-testid="cart-title">
                 Shopping Bag
               </SheetTitle>
+              <SheetDescription className="sr-only">
+                View and manage items in your shopping cart
+              </SheetDescription>
             </SheetHeader>
             
             <div className="mt-8 flex flex-col h-full">
