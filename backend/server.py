@@ -1,23 +1,15 @@
 from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel
 from typing import List
-import uuid
-from datetime import datetime, timezone
 
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
-
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -27,44 +19,104 @@ api_router = APIRouter(prefix="/api")
 
 
 # Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+class Product(BaseModel):
+    id: int
+    name: str
+    price: int
+    category: str
+    image: str
+    description: str = ""
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
-# Add your routes to the router instead of directly to app
+# Mock product data
+PRODUCTS = [
+    {
+        "id": 1,
+        "name": "Oversized Structure Blazer",
+        "price": 189,
+        "category": "Outerwear",
+        "image": "https://images.unsplash.com/photo-1737540995419-21ed4ded15a6?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "A contemporary take on tailoring with exaggerated shoulders and a relaxed silhouette. Perfect for both professional and casual settings."
+    },
+    {
+        "id": 2,
+        "name": "Essential Cotton Sweatshirt",
+        "price": 85,
+        "category": "Tops",
+        "image": "https://images.unsplash.com/photo-1693901257178-b5fcb8f036a8?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Soft, breathable cotton in a classic fit. Your everyday essential for effortless style and comfort."
+    },
+    {
+        "id": 3,
+        "name": "Tailored Wool Coat",
+        "price": 245,
+        "category": "Outerwear",
+        "image": "https://images.unsplash.com/photo-1737540995958-1b1b3efd391f?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Premium wool blend with impeccable tailoring. A timeless investment piece for the modern wardrobe."
+    },
+    {
+        "id": 4,
+        "name": "Noir Leather Jacket",
+        "price": 320,
+        "category": "Outerwear",
+        "image": "https://images.unsplash.com/photo-1616404662085-b81be2812cf2?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Genuine leather with a sleek, minimalist design. Crafted to develop character over time while maintaining its sophisticated edge."
+    },
+    {
+        "id": 5,
+        "name": "Winter Trench Coat",
+        "price": 210,
+        "category": "Outerwear",
+        "image": "https://images.unsplash.com/photo-1632149877166-f75d49000351?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Classic trench styling with modern proportions. Water-resistant fabric meets timeless design for unpredictable weather."
+    },
+    {
+        "id": 6,
+        "name": "Signature White Suit",
+        "price": 299,
+        "category": "Suits",
+        "image": "https://images.unsplash.com/photo-1746864946956-0c047289abaf?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "A statement piece in pristine white. Impeccably tailored for those who dare to stand out with understated elegance."
+    },
+    {
+        "id": 7,
+        "name": "Silk Evening Dress",
+        "price": 180,
+        "category": "Dresses",
+        "image": "https://images.unsplash.com/photo-1641840007671-06412f440b65?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Luxurious silk that drapes beautifully. Designed for special occasions with a minimalist aesthetic that lets the fabric speak."
+    },
+    {
+        "id": 8,
+        "name": "Everyday Tote",
+        "price": 120,
+        "category": "Accessories",
+        "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "description": "Spacious and structured with clean lines. The perfect companion for work, travel, and everything in between."
+    }
+]
+
+
+# Routes
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "LUMIÈRE E-Commerce API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.get("/products", response_model=List[Product])
+async def get_products():
+    """Get all products"""
+    return PRODUCTS
+
+
+@api_router.get("/products/{product_id}", response_model=Product)
+async def get_product(product_id: int):
+    """Get a single product by ID"""
+    product = next((p for p in PRODUCTS if p["id"] == product_id), None)
+    if not product:
+        return {"error": "Product not found"}
+    return product
+
 
 # Include the router in the main app
 app.include_router(api_router)
@@ -83,7 +135,3 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
