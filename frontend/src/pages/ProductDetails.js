@@ -18,8 +18,10 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`${API}/products/${id}`);
-        setProduct(response.data);
+        //const response = await axios.get(`${API}/products/${id}`);
+        const response = await axios.get(`/products.json`);
+        const foundProduct = response.data.find(p => String(p.id) === id);
+        setProduct(foundProduct);
       } catch (error) {
         console.error('Error fetching product:', error);
         toast.error('Failed to load product');
